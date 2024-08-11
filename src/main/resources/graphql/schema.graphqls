@@ -1,0 +1,42 @@
+type Query{
+    allWorkers: [Worker!]
+    allDepartment: [Department!]
+    allChefs : [Chef!]
+    workerById(id : Int!): Worker
+    departmentById(id : Int!): Department
+    chefById(id : Int!): Chef
+}
+
+type Mutation{
+    createDepartment(name : String!, description : String!) : Department
+    createWorker(name : String!, age : Int!, income : Int!, position : String!): Worker
+    createChef(name : String!, income : Int!, position : String!) : Chef
+}
+type Worker{
+    id:ID!
+    name : String!
+    age : Int!
+    income : Int!
+    position : String!
+    department : Department
+
+
+}
+type Department{
+    id : ID!
+    description : String!
+    name : String!
+    chef: Chef
+
+}
+input ChefInput{
+    name : String!
+    income : Int!
+    position : String!
+}
+type Chef{
+    id : ID!
+    name : String!
+    income : Int!
+    position : String!
+}
