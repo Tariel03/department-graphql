@@ -4,6 +4,7 @@ import com.example.departmentgraphql.entities.Department;
 import com.example.departmentgraphql.entities.Worker;
 import com.example.departmentgraphql.repos.DepartmentRepository;
 import com.example.departmentgraphql.repos.WorkerRepository;
+import com.example.departmentgraphql.services.WorkerService;
 import lombok.AllArgsConstructor;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
@@ -15,18 +16,19 @@ import java.util.List;
 @Controller
 @AllArgsConstructor
 public class WorkerController {
-    WorkerRepository workerRepository;
+    WorkerService workerService;
     @QueryMapping
     public List<Worker> allWorkers(){
-        return workerRepository.findAll();
+        return workerService.findAll();
     }
     @QueryMapping
     public Worker workerById(@Argument Integer id){
-        return workerRepository.findById(id).orElseThrow();
+        return workerService.findById(id);
     }
     @MutationMapping
-    public Worker createWorker(@Argument String name, @Argument String position, @Argument int age,@Argument int income){
-        return workerRepository.save(new Worker(name,income,age,position));
+    public Worker createWorker(@Argument String name, @Argument String position, @Argument int age,@Argument int income
+    ,@Argument Integer department_id){
+        return workerService.save(name,position,age,income, department_id);
     }
 
 }

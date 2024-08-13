@@ -2,6 +2,8 @@ package com.example.departmentgraphql.controllers;
 
 import com.example.departmentgraphql.entities.Department;
 import com.example.departmentgraphql.repos.DepartmentRepository;
+import com.example.departmentgraphql.services.ChefService;
+import com.example.departmentgraphql.services.DepartmentService;
 import lombok.AllArgsConstructor;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
@@ -13,17 +15,18 @@ import java.util.List;
 @Controller
 @AllArgsConstructor
 public class DepartmentController {
-    DepartmentRepository departmentRepository;
+    DepartmentService departmentService;
+    ChefService chefService;
     @QueryMapping
     public List<Department> allDepartment(){
-        return departmentRepository.findAll();
+        return departmentService.findAll();
     }
     @QueryMapping
     public Department departmentById(@Argument Integer id){
-        return departmentRepository.findById(id).orElseThrow();
+        return departmentService.findById(id);
     }
     @MutationMapping
-    public Department createDepartment(@Argument String name, @Argument String description){
-        return departmentRepository.save(new Department(name, description));
+    public Department createDepartment(@Argument String name, @Argument String description, @Argument Integer chef_id){
+        return departmentService.save(name, description, chef_id);
     }
 }
