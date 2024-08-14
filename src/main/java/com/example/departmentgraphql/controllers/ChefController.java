@@ -42,7 +42,6 @@ public class ChefController {
                         Optional.of(size).orElse(10))
 
         );
-        System.out.println(chefs);
         return chefs;
 
     }
