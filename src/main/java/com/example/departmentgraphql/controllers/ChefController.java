@@ -36,13 +36,12 @@ public class ChefController {
     }
     @QueryMapping
     public Page<Chef> pageOfChefs(@Argument int size, @Argument int page){
-        Page<Chef> chefs = chefService.getPageOfChefs(
+        return chefService.getPageOfChefs(
                 PageRequest.of(
                         Optional.of(page).orElse(10),
                         Optional.of(size).orElse(10))
 
         );
-        return chefs;
 
     }
 
