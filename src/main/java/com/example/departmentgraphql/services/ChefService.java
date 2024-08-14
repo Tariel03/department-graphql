@@ -1,9 +1,12 @@
 package com.example.departmentgraphql.services;
 
 import com.example.departmentgraphql.entities.Chef;
+import com.example.departmentgraphql.entities.Worker;
 import com.example.departmentgraphql.exceptions.NotFoundById;
 import com.example.departmentgraphql.repos.ChefRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +23,10 @@ public class ChefService {
         return chefRepository.save(new Chef(name,position, income));
 
     }
+    public Page<Chef> getPageOfChefs(Pageable pageable){
+        return chefRepository.findAll(pageable);
+    }
+
     public Chef findById(Integer id){
         Optional<Chef> optional = chefRepository.findById(id);
         if(optional.isPresent()){

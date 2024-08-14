@@ -5,14 +5,16 @@ type Query{
     workerById(id : Int!): Worker
     departmentById(id : Int!): Department
     chefById(id : Int!): Chef
+    pageOfWorkers(page :Int, size: Int) : [Worker]
+    pageOfChefs(page :Int, size: Int) : [Chef]
+    pageOfDepartments(page :Int, size: Int) : [Department]
+
 }
 
 type Mutation{
-    createDepartment(name : String!, description : String!) : Department
-    createWorker(name : String!, age : Int!, income : Int!, position : String!): Worker
+    createDepartment(name : String!, description : String!, chef_id : Int) : Department
+    createWorker(name : String!, age : Int!, income : Int!, position : String!, department_id : Int): Worker
     createChef(name : String!, income : Int!, position : String!) : Chef
-    setChefForDepartment(id: Int!, chef_id : Int!) : Chef
-    setDepartmentForWorker(id : Int!,department_id : Int! ) : Department
 }
 type Worker{
     id:ID!

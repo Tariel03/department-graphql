@@ -1,9 +1,12 @@
 package com.example.departmentgraphql.services;
 
+import com.example.departmentgraphql.entities.Chef;
 import com.example.departmentgraphql.entities.Worker;
 import com.example.departmentgraphql.exceptions.NotFoundById;
 import com.example.departmentgraphql.repos.WorkerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.stereotype.Service;
 
@@ -27,5 +30,8 @@ public class WorkerService {
     }
     public Worker save(String name, String position, int age,  int income, Integer department_id){
         return workerRepository.save(new Worker(name, income, age,position, departmentService.findById(department_id)));
+    }
+    public Page<Worker> getPageOfWorkers(Pageable pageable){
+        return workerRepository.findAll(pageable);
     }
 }
