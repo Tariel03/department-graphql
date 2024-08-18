@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
@@ -22,18 +23,25 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ChefController {
     private final ChefService chefService;
+    @PostAuthorize("hasRole('ADMIN')")
     @QueryMapping
     public List<Chef> allChefs(){
         return chefService.findAll();
     }
+    @PostAuthorize("hasRole('ADMIN')")
+
     @QueryMapping
     public Chef chefById(@Argument Integer id){
         return chefService.findById(id);
     }
+    @PostAuthorize("hasRole('ADMIN')")
+
     @MutationMapping
     public Chef createChef(@Argument String name, @Argument String position, @Argument int income){
         return chefService.save(name, position, income);
     }
+    @PostAuthorize("hasRole('ADMIN')")
+
     @QueryMapping
     public Page<Chef> pageOfChefs(@Argument int size, @Argument int page){
         return chefService.getPageOfChefs(
