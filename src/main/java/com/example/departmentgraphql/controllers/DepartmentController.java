@@ -35,7 +35,8 @@ public class DepartmentController {
         return departmentService.findById(id);
     }
     @MutationMapping
-    @PostAuthorize("hasRole('ADMIN')")
+    @PermitAll
+//    @PostAuthorize("hasRole('ADMIN')")
     public Department createDepartment(@Argument String name, @Argument String description, @Argument Integer chef_id){
         return departmentService.save(name, description, chef_id);
     }

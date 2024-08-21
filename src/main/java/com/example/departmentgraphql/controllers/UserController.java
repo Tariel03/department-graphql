@@ -19,12 +19,15 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
     @QueryMapping
-    @PostAuthorize("hasRole('USER')")
+    @PermitAll
+//    @PostAuthorize("hasRole('USER')")
     public List<User> allUsers(){
         return userService.findAll();
     }
     @QueryMapping
-    @PostAuthorize("hasRole('USER')")
+    @PermitAll
+
+//    @PostAuthorize("hasRole('USER')")
     public User userById(@Argument Integer id){
         return  userService.findById(id);
     }
